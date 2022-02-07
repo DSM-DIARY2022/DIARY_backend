@@ -31,7 +31,7 @@ public class Account { // 계정
 
     // 닉네임
     @Column(nullable = false)
-    private String accountName;
+    private String Name;
 
     // 아이디
     @Column(nullable = false, length =  10)
@@ -39,6 +39,6 @@ public class Account { // 계정
 
     // 비밀번호
     @Column(nullable = false)
-    private String accountPwd;
+    private String password;
 
 }
