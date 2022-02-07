@@ -1,6 +1,6 @@
-package com.example.diary_backend.Entity.Comments;
+package com.dsm.diary.entity.comments;
 
-import com.example.diary_backend.Entity.Post.Post;
+import com.dsm.diary.entity.post.Post;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

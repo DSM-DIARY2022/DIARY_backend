@@ -1,7 +1,7 @@
-package com.example.diary_backend.Entity.Post;
+package com.dsm.diary.entity.post;
 
-import com.example.diary_backend.Entity.Account.Account;
-import com.example.diary_backend.Entity.Comments.Comments;
+import com.dsm.diary.entity.account.Account;
+import com.dsm.diary.entity.comments.Comments;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

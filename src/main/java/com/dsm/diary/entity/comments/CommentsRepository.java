@@ -1,4 +1,4 @@
-package com.example.diary_backend.Entity.Comments;
+package com.dsm.diary.entity.comments;
 
 import org.springframework.data.repository.CrudRepository;
 

@@ -1,4 +1,4 @@
-package com.example.diary_backend.Entity.Post;
+package com.dsm.diary.entity.post;
 
 import org.springframework.data.repository.CrudRepository;
 
