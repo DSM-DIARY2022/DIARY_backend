@@ -1,4 +1,4 @@
-package com.example.diary_backend.Config;
+package com.dsm.diary.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
