@@ -1,4 +1,4 @@
-package com.example.diary_backend.Entity.Account;
+package com.dsm.diary.entity.account;
 
 import org.springframework.data.repository.CrudRepository;
 
