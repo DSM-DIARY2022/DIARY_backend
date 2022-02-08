@@ -1,7 +1,7 @@
 package com.dsm.diary.entity.post;
 
 import com.dsm.diary.entity.account.Account;
-import com.dsm.diary.entity.comments.Comments;
+import com.dsm.diary.entity.comments.Comment;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -60,6 +60,6 @@ public class Post { // 게시글
     // 댓글
     @OneToOne
     @JoinColumn(name = "comments_id")
-    private Comments comments;
+    private Comment comment;
 
 }
