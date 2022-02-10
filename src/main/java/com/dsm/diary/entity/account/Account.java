@@ -26,7 +26,7 @@ public class Account { // 계정
     private Long id;
 
     // 이메일
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
 
     // 닉네임
@@ -34,7 +34,7 @@ public class Account { // 계정
     private String Name;
 
     // 아이디
-    @Column(nullable = false, length =  10)
+    @Column(nullable = false, length =  10, unique = true)
     private String accountId;
 
     // 비밀번호
