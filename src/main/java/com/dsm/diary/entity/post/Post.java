@@ -1,5 +1,6 @@
 package com.dsm.diary.entity.post;
 
+import com.dsm.diary.entity.BaseTime;
 import com.dsm.diary.entity.account.Account;
 import com.dsm.diary.entity.comments.Comment;
 
@@ -7,7 +8,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,14 +18,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
-import java.time.LocalDate;
-
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Post { // 게시글
+public class Post extends BaseTime { // 게시글
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,14 +41,6 @@ public class Post { // 게시글
     // 내용
     @Column(nullable = false, length = 1000)
     private String content;
-
-    // 생성한 날짜
-    @Column(nullable = false)
-    private LocalDate createdDate;
-
-    // 수정한 날짜
-    @Column(nullable = false)
-    private LocalDate modifiedDate;
 
     // 유저
     @ManyToOne
