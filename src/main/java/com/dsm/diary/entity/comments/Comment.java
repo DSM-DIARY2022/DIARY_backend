@@ -13,9 +13,7 @@ import javax.persistence.Id;
 
 
 @Getter
-@Builder
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 public class Comment { // 댓글
 
@@ -27,5 +25,10 @@ public class Comment { // 댓글
     // 내용
     @Column(nullable = false, length = 500)
     private String content;
+
+    @Builder
+    public Comment(String content) {
+        this.content = content;
+    }
 
 }

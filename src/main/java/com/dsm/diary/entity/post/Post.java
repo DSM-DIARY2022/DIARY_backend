@@ -19,9 +19,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Getter
-@Builder
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 public class Post extends BaseTime { // 게시글
 
@@ -51,5 +49,14 @@ public class Post extends BaseTime { // 게시글
     @OneToOne
     @JoinColumn(name = "comment_id")
     private Comment comment;
+
+    @Builder
+    public Post(Integer feeling, String title, String content, Account account, Comment comment) {
+        this.feeling = feeling;
+        this.title = title;
+        this.content = content;
+        this.account = account;
+        this.comment = comment;
+    }
 
 }

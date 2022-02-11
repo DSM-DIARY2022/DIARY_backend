@@ -14,9 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Getter
-@Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 @Entity
 public class Account { // 계정
 
@@ -40,5 +38,13 @@ public class Account { // 계정
     // 비밀번호
     @Column(nullable = false)
     private String password;
+
+    @Builder
+    public Account(String email, String name, String accountId, String password){
+        this.email = email;
+        this.name = name;
+        this.accountId = accountId;
+        this.password = password;
+    }
 
 }
