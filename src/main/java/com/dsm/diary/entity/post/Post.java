@@ -49,7 +49,7 @@ public class Post extends BaseTime { // 게시글
 
     // 댓글
     @OneToOne
-    @JoinColumn(name = "comments_id")
+    @JoinColumn(name = "comment_id")
     private Comment comment;
 
 }
