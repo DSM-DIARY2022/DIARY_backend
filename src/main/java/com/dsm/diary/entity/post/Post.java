@@ -4,7 +4,6 @@ import com.dsm.diary.entity.BaseTime;
 import com.dsm.diary.entity.account.Account;
 import com.dsm.diary.entity.comments.Comment;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
