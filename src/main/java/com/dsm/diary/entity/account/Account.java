@@ -30,7 +30,7 @@ public class Account { // 계정
     private Long id;
 
     // 이메일
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, length = 45)
     private String email;
 
     // 닉네임
