@@ -24,7 +24,6 @@ public class Post extends BaseTime { // 게시글
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
     private Long id;
 
     // 기분
