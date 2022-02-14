@@ -26,7 +26,7 @@ public class Account { // 계정
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column
     private Long id;
 
     // 이메일
