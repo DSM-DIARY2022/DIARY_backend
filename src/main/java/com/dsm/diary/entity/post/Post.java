@@ -41,7 +41,7 @@ public class Post extends BaseTime { // 게시글
 
     // 유저
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "account_id")
     private Account account;
 
     // 댓글
