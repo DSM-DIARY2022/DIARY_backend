@@ -32,7 +32,7 @@ public class Post extends BaseTime { // 게시글
     @Column(nullable = false, length = 1)
     private Integer feeling;
 
-    // 제복
+    // 제목
     @Column(nullable = false, length = 100)
     private String title;
 
