@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -44,9 +45,7 @@ public class Post extends BaseTime { // 게시글
     @JoinColumn(name = "account_id")
     private Account account;
 
-    // 댓글
-    @OneToOne
-    @JoinColumn(name = "comment_id")
+    @OneToOne(mappedBy = "comment", cascade = CascadeType.REMOVE)
     private Comment comment;
 
     @Builder
