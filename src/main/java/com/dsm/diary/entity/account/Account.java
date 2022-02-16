@@ -39,7 +39,7 @@ public class Account { // 계정
     private String accountId;
 
     // 비밀번호
-    @Column(nullable = false)
+    @Column(nullable = false, length = 60)
     private String password;
 
     // 게시글
