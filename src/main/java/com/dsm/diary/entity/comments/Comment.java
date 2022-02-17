@@ -1,6 +1,7 @@
 package com.dsm.diary.entity.comments;
 
 import com.dsm.diary.entity.post.Post;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -14,7 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class Comment { // 댓글
 

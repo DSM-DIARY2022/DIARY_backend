@@ -4,6 +4,7 @@ import com.dsm.diary.entity.BaseTime;
 import com.dsm.diary.entity.account.Account;
 import com.dsm.diary.entity.comments.Comment;
 
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,7 +21,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class Post extends BaseTime { // 게시글
 
