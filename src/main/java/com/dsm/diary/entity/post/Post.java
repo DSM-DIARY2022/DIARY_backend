@@ -30,7 +30,7 @@ public class Post extends BaseTime { // 게시글
     private Long id;
 
     // 기분
-    @Column(nullable = false, length = 1)
+    @Column(nullable = false, columnDefinition = "tinyint")
     private Integer feeling;
 
     // 제목
