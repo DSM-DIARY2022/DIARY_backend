@@ -1,5 +1,6 @@
 package com.dsm.diary.service.Util;
 
+import com.dsm.diary.Exception.ForbiddenException;
 import com.dsm.diary.Exception.NotFoundException;
 import com.dsm.diary.Exception.UnauthorizedException;
 import com.dsm.diary.entity.account.Account;
@@ -26,6 +27,12 @@ public class AuthUtiil {
     public Account getAccount() {
         return accountRepository.findByAccountId(getAccountId())
                 .orElseThrow(NotFoundException::new);
+    }
+
+    public void verificationAccount(Account account) {
+        if(!(getAccount() == account)) {
+            throw new ForbiddenException();
+        }
     }
 
 }

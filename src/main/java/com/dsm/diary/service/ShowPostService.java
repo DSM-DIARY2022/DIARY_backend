@@ -28,7 +28,7 @@ public class ShowPostService {
         Post post = postRepository.findById(postId)
                 .orElseThrow(NotFoundException::new);
 
-        verificationAccount(post.getAccount());
+        authUtiil.verificationAccount(post.getAccount());
 
         return PostResponse.builder()
                 .id(post.getId())
@@ -39,12 +39,6 @@ public class ShowPostService {
                 .modifiedDate(post.getModifiedDate())
                 .comment(post.getComment())
                 .build();
-    }
-
-    private void verificationAccount(Account account) {
-        if(!(authUtiil.getAccount() == account)) {
-            throw new ForbiddenException();
-        }
     }
 
 }
