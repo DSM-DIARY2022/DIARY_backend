@@ -2,6 +2,8 @@ package com.dsm.diary.entity.account;
 
 import org.springframework.data.repository.CrudRepository;
 
-public interface AccountRepository extends CrudRepository<Account, Long> {
+import java.util.Optional;
 
+public interface AccountRepository extends CrudRepository<Account, Long> {
+    Optional<Account> findByAccountId(String accountId);
 }
