@@ -49,8 +49,12 @@ public class PostService {
     **/
     public PostIdResponse updatePost(Long postId, PostRequset requset) {
         checkFeeling(requset.getFeeling());
+
         Post post = postRepository.findById(postId)
                 .orElseThrow(NotFoundException::new);
+
+        authUtiil.verificationAccount(post.getAccount());
+
         post.update(requset);
         postRepository.save(post);
         return new PostIdResponse(post.getId());
