@@ -30,7 +30,7 @@ public class PostController {
 
     @PutMapping("/{postId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public PostIdResponse updatePost(@PathVariable("pistId") Long postId,
+    public PostIdResponse updatePost(@PathVariable("postId") Long postId,
                                      @RequestBody @Valid PostRequset requset) {
         return postService.updatePost(postId, requset);
     }
