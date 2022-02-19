@@ -31,7 +31,7 @@ public class PostService {
         checkFeeling(requset.getFeeling());
         Long id = postRepository.save(
                 Post.builder()
-                        .account(getAccount())
+                        .account(authUtiil.getAccount())
                         .title(requset.getTitle())
                         .content(requset.getContent())
                         .feeling(requset.getFeeling())
@@ -54,11 +54,6 @@ public class PostService {
         post.update(requset);
         postRepository.save(post);
         return new PostIdResponse(post.getId());
-    }
-
-    private Account getAccount() {
-        return accountRepository.findByAccountId(authUtiil.getAccountId())
-                .orElseThrow(NotFoundException::new);
     }
 
     private void checkFeeling(Integer feeling) {
