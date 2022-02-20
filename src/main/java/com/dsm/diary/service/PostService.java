@@ -4,8 +4,6 @@ import com.dsm.diary.Exception.BadRequestException;
 import com.dsm.diary.Exception.NotFoundException;
 import com.dsm.diary.dto.request.PostRequset;
 import com.dsm.diary.dto.response.PostIdResponse;
-import com.dsm.diary.entity.account.Account;
-import com.dsm.diary.entity.account.AccountRepository;
 import com.dsm.diary.entity.post.Post;
 import com.dsm.diary.entity.post.PostRepository;
 import com.dsm.diary.service.Util.AuthUtiil;
@@ -18,7 +16,6 @@ public class PostService {
 
     private final AuthUtiil authUtiil;
     private final PostRepository postRepository;
-    private final AccountRepository accountRepository;
 
     /**
     *
