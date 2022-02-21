@@ -1,6 +1,7 @@
 package com.dsm.diary.controller;
 
 import com.dsm.diary.dto.request.PostRequset;
+import com.dsm.diary.dto.response.PostFeelingResponse;
 import com.dsm.diary.dto.response.PostIdResponse;
 import com.dsm.diary.dto.response.PostResponse;
 import com.dsm.diary.dto.response.PostViweListResponse;
@@ -66,6 +67,12 @@ public class PostController {
     @ResponseStatus(HttpStatus.OK)
     public PostViweListResponse showDatePostList(@RequestParam(value = "feeling") Integer feeling) {
         return showPostService.showFeelingPostList(feeling);
+    }
+
+    @GetMapping("/feeling")
+    @ResponseStatus(HttpStatus.OK)
+    public PostFeelingResponse showFeelingCount(@RequestParam(value = "date") @DateTimeFormat(pattern = "yyyy-MM") LocalDate date){
+       return showPostService.showFeelingCount(date);
     }
 
 }

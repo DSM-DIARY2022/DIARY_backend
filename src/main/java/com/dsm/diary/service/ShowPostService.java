@@ -1,6 +1,7 @@
 package com.dsm.diary.service;
 
 import com.dsm.diary.Exception.NotFoundException;
+import com.dsm.diary.dto.response.PostFeelingResponse;
 import com.dsm.diary.dto.response.PostResponse;
 import com.dsm.diary.dto.response.PostViweListResponse;
 import com.dsm.diary.dto.response.PostViweResponse;
@@ -80,6 +81,22 @@ public class ShowPostService {
     public PostViweListResponse showDatePostList(LocalDate date) {
         List<Post> posts = postRepository.findAllByCreatedDateOrderByCreatedDateDesc(date);
         return getPostList(posts);
+    }
+
+    /**
+    *
+    * 입력받은 월 일기의 기분 별 개수
+    * 성공시 200과 PostFeelingResponse 반환, 실패시 404(일기를 찾지 못함)
+    *
+    * author : chlgml
+    **/
+    public PostFeelingResponse showFeelingCount(LocalDate date) {
+        List<Post> posts = postRepository.findAllByCreatedDate(date);
+        Integer feelingCount = 0;
+        for(Post post : posts) {
+            feelingCount += post.getFeeling();
+        }
+        return new PostFeelingResponse(feelingCount);
     }
 
     private PostViweListResponse getPostList(List<Post> posts) {
