@@ -1,6 +1,6 @@
 package com.dsm.diary.controller;
 
-import com.dsm.diary.dto.request.PostRequset;
+import com.dsm.diary.dto.request.PostRequest;
 import com.dsm.diary.dto.response.PostFeelingResponse;
 import com.dsm.diary.dto.response.PostIdResponse;
 import com.dsm.diary.dto.response.PostResponse;
@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,14 +33,14 @@ public class PostController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public PostIdResponse sevePost(@RequestBody @Valid PostRequset requset) {
+    public PostIdResponse sevePost(@RequestBody @Valid PostRequest requset) {
         return postService.sevePost(requset);
     }
 
     @PutMapping("/{postId}")
     @ResponseStatus(HttpStatus.CREATED)
     public PostIdResponse updatePost(@PathVariable("postId") Long postId,
-                                     @RequestBody @Valid PostRequset requset) {
+                                     @RequestBody @Valid PostRequest requset) {
         return postService.updatePost(postId, requset);
     }
 

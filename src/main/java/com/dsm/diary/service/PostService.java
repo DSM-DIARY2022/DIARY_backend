@@ -2,7 +2,7 @@ package com.dsm.diary.service;
 
 import com.dsm.diary.Exception.BadRequestException;
 import com.dsm.diary.Exception.NotFoundException;
-import com.dsm.diary.dto.request.PostRequset;
+import com.dsm.diary.dto.request.PostRequest;
 import com.dsm.diary.dto.response.PostIdResponse;
 import com.dsm.diary.entity.post.Post;
 import com.dsm.diary.entity.post.PostRepository;
@@ -24,7 +24,7 @@ public class PostService {
     *
     * author : chlgml
     **/
-    public PostIdResponse sevePost(PostRequset requset) {
+    public PostIdResponse sevePost(PostRequest requset) {
         checkFeeling(requset.getFeeling());
         Long id = postRepository.save(
                 Post.builder()
@@ -44,7 +44,7 @@ public class PostService {
     *
     * author : chlgml
     **/
-    public PostIdResponse updatePost(Long postId, PostRequset requset) {
+    public PostIdResponse updatePost(Long postId, PostRequest requset) {
         checkFeeling(requset.getFeeling());
 
         Post post = postRepository.findById(postId)

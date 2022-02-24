@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class PostRequset {
+public class PostRequest {
 
     @NotBlank
     @Size(max = 1)
