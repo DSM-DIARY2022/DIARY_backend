@@ -27,6 +27,10 @@ public class SignupRequest {
             message = "비밀번호는 영문자와 숫자, 특수문자를 모두 포함해서 6~18자리 이내로 입력해주세요.")
     private String password;
 
+    public void encodePassword(String password){
+        this.password = password;
+    }
+
     /*
         - 이메일
         - 아이디(5~10, 영문자와 숫자 모두 포함)
