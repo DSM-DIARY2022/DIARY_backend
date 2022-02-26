@@ -1,6 +1,7 @@
 package com.dsm.diary.entity.refreshToken;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
@@ -13,17 +14,17 @@ import org.springframework.data.redis.core.index.Indexed;
 @RedisHash
 public class RefreshToken {
     @Id
-    private String username;
+    private String id;
 
     @Indexed
     private String refreshToken;
 
     @TimeToLive
-    private String ttl;
+    private Long ttl;
 
-    public RefreshToken update(String username, String refreshToken){
+    public RefreshToken(String id, String refreshToken){
+        this.id = id;
         this.refreshToken = refreshToken;
-        this.ttl = ttl;
-        return this;
+        this.ttl = 300L;
     }
 }
