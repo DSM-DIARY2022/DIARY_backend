@@ -2,11 +2,10 @@ package com.dsm.diary.entity.account;
 
 import org.springframework.data.repository.CrudRepository;
 
-public interface AccountRepository extends CrudRepository<Account, Long> {
-<<<<<<< Updated upstream
+import java.util.Optional;
 
-=======
+public interface AccountRepository extends CrudRepository<Account, Long> {
     Optional<Account> findByAccountId(String accountId);
     Optional<Account> findByEmail(String email);
->>>>>>> Stashed changes
+    Optional<Account> findByName(String name);
 }
