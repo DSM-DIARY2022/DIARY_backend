@@ -1,5 +1,6 @@
 package com.dsm.diary.controller;
 
+import com.dsm.diary.dto.request.FindAccountIdRequest;
 import com.dsm.diary.dto.request.LoginRequest;
 import com.dsm.diary.dto.request.SignupRequest;
 import com.dsm.diary.security.jwt.dto.TokenResponse;
@@ -34,5 +35,9 @@ public class AuthController {
         return authService.reissue(refreshToken);
     }
 
+    @PostMapping("/find/id")
+    public void findAccountId(FindAccountIdRequest findAccountIdRequest){
+        authService.findAccountId(findAccountIdRequest);
+    }
 
 }
