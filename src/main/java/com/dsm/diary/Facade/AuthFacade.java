@@ -39,7 +39,7 @@ public class AuthFacade {
         );
     }
 
-    public void sendEmail(String email){
+    public void sendSuccessEmail(String email){
         MimeMessage message = javaMailSender.createMimeMessage();
 
         try{
@@ -54,8 +54,34 @@ public class AuthFacade {
         }
     }
 
+    public void sendAccountIdEmail(String email, String accountId){
+        MimeMessage message = javaMailSender.createMimeMessage();
+
+        try{
+            message.setFrom("sonjm3518@dsm.hs.kr");
+            message.addRecipients(Message.RecipientType.TO, email);
+            message.setSubject("[아이디 찾기]");
+            message.setText("회원님의 아이디는 " + accountId + "입니다." );
+            javaMailSender.send(message);
+        }catch (MessagingException e){
+            e.getStackTrace();
+            throw new ServerErrorException();
+        }
+    }
+
+
     public Account getByAccountId(String accountId){
-        return accountRepository.findByEmail(accountId)
+        return accountRepository.findByAccountId(accountId)
+                .orElseThrow(NotFoundException::new);
+    }
+
+    public Account getByEmail(String email){
+        return accountRepository.findByEmail(email)
+                .orElseThrow(NotFoundException::new);
+    }
+
+    public Account getByName(String name){
+        return accountRepository.findByName(name)
                 .orElseThrow(NotFoundException::new);
     }
 
