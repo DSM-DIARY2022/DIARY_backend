@@ -2,6 +2,7 @@ package com.dsm.diary.entity.comments;
 
 import com.dsm.diary.entity.post.Post;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -32,7 +33,13 @@ public class Comment { // 댓글
     @JoinColumn(name = "post_id")
     private Post post;
 
-    public Comment(String content) {
+    public Comment(String content, Post post) {
         this.content = content;
+        this.post = post;
+    }
+
+    public Comment updateComment(String content){
+        this.content = content;
+        return this;
     }
 }
