@@ -1,5 +1,6 @@
 package com.dsm.diary.entity.post;
 
+import com.dsm.diary.dto.request.PostRequest;
 import com.dsm.diary.entity.BaseTime;
 import com.dsm.diary.entity.account.Account;
 import com.dsm.diary.entity.comments.Comment;
@@ -46,7 +47,6 @@ public class Post extends BaseTime { // 게시글
     @JoinColumn(name = "account_id")
     private Account account;
 
-    /*
     @OneToOne(mappedBy = "comment", cascade = CascadeType.REMOVE)
     private Comment comment;
 
@@ -59,11 +59,11 @@ public class Post extends BaseTime { // 게시글
         this.comment = comment;
     }
 
-    public void update(PostRequest requset) {
-        this.feeling = requset.getFeeling();
-        this.title = requset.getTitle();
-        this.content = requset.getContent();
+
+    public void update(PostRequest request) {
+        this.feeling = request.getFeeling();
+        this.title = request.getTitle();
+        this.content = request.getContent();
     }
-    */
 
 }
