@@ -2,6 +2,7 @@ package com.dsm.diary.service;
 
 import com.dsm.diary.Facade.CommentFacade;
 import com.dsm.diary.dto.request.CommentRequest;
+import com.dsm.diary.dto.response.CommentResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,5 +25,10 @@ public class CommentService {
     @Transactional
     public void modifyComment(CommentRequest commentRequest, Long commentId){
         commentFacade.modifyComment(commentRequest, commentId);
+    }
+
+    @Transactional
+    public CommentResponse getComment(Long commentId){
+        return commentFacade.getComment(commentId);
     }
 }
