@@ -1,6 +1,5 @@
 package com.dsm.diary.service;
 
-import com.dsm.diary.Exception.ServerErrorException;
 import com.dsm.diary.Exception.UnauthorizedException;
 import com.dsm.diary.Facade.AuthFacade;
 import com.dsm.diary.dto.request.FindAccountIdRequest;
