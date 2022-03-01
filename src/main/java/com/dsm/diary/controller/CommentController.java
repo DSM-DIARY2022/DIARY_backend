@@ -1,11 +1,12 @@
 package com.dsm.diary.controller;
 
 import com.dsm.diary.dto.request.CommentRequest;
-import com.dsm.diary.dto.request.SignupRequest;
+import com.dsm.diary.dto.response.CommentResponse;
 import com.dsm.diary.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,5 +36,10 @@ public class CommentController {
     @PostMapping("/modify")
     public void modifyComment(@RequestBody @Valid CommentRequest commentRequest, @RequestParam("comment-id") Long commentId){
         commentService.modifyComment(commentRequest, commentId);
+    }
+
+    @GetMapping("/get")
+    public CommentResponse getComment(@RequestParam("comment-id") Long commentId){
+        return commentService.getComment(commentId);
     }
 }
