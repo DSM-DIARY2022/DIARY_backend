@@ -7,6 +7,7 @@ import com.dsm.diary.dto.request.SignupRequest;
 import com.dsm.diary.entity.account.Account;
 import com.dsm.diary.entity.account.AccountRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -18,6 +19,9 @@ import javax.mail.internet.MimeMessage;
 @Component
 @RequiredArgsConstructor
 public class AuthFacade {
+    @Value("${mail.username}")
+    private String emailUsername;
+
     private final AccountRepository accountRepository;
     private final PasswordEncoder passwordEncoder;
     private final JavaMailSender javaMailSender;
@@ -43,7 +47,7 @@ public class AuthFacade {
         MimeMessage message = javaMailSender.createMimeMessage();
 
         try{
-            message.setFrom("sonjm3518@dsm.hs.kr");
+            message.setFrom(emailUsername);
             message.addRecipients(Message.RecipientType.TO,email);
             message.setSubject("[회원가입 성공]");
             message.setText("회원가입에 성공하셨습니다.");
@@ -58,7 +62,7 @@ public class AuthFacade {
         MimeMessage message = javaMailSender.createMimeMessage();
 
         try{
-            message.setFrom("sonjm3518@dsm.hs.kr");
+            message.setFrom(emailUsername);
             message.addRecipients(Message.RecipientType.TO, email);
             message.setSubject("[아이디 찾기]");
             message.setText("회원님의 아이디는 " + accountId + "입니다." );
