@@ -7,6 +7,7 @@ import com.dsm.diary.security.jwt.dto.TokenResponse;
 import com.dsm.diary.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,7 +38,7 @@ public class AuthController {
         return authService.reissue(refreshToken);
     }
 
-    @PostMapping("/find/id")
+    @GetMapping("/find/id")
     public void findAccountId(FindAccountIdRequest findAccountIdRequest){
         authService.findAccountId(findAccountIdRequest);
     }
