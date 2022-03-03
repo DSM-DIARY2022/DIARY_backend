@@ -31,4 +31,15 @@ public class CommentService {
     public CommentResponse getComment(Long commentId){
         return commentFacade.getComment(commentId);
     }
+
+    /**
+     *
+     * 댓글 추가 : 성공하면 201
+     *            Post를 찾지 못하면 404
+     * 댓글 삭제 : 성공하면 200
+     *            삭제할 댓글을 찾지 못하면 404
+     * 댓글 수정 : 성공하면 200
+     *            수정할 댓글을 찾지 못하면 404
+     *
+     **/
 }

@@ -34,7 +34,7 @@ public class CommentFacade {
     }
 
     public void modifyComment(CommentRequest commentRequest, Long commentId){
-        Comment comment = commentRepository.findById(commentId)
+        commentRepository.findById(commentId)
                 .map(newComment -> newComment.updateComment(
                         commentRequest.getContent()
                 ))
