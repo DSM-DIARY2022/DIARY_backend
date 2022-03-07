@@ -10,6 +10,7 @@ import org.springframework.data.redis.core.TimeToLive;
 import org.springframework.data.redis.core.index.Indexed;
 
 @Getter
+@Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @RedisHash
 public class RefreshToken {
@@ -22,9 +23,7 @@ public class RefreshToken {
     @TimeToLive
     private Long ttl;
 
-    public RefreshToken(String id, String refreshToken){
-        this.id = id;
-        this.refreshToken = refreshToken;
-        this.ttl = 300L;
+    public void update(Long ttl){
+        this.ttl = ttl;
     }
 }
