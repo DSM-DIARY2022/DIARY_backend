@@ -38,7 +38,7 @@ public class AuthController {
         return authService.reissue(refreshToken);
     }
 
-    @GetMapping("/find/id")
+    @GetMapping
     public void findAccountId(FindAccountIdRequest findAccountIdRequest){
         authService.findAccountId(findAccountIdRequest);
     }
