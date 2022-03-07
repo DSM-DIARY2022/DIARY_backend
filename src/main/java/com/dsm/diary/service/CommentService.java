@@ -1,8 +1,8 @@
 package com.dsm.diary.service;
 
-import com.dsm.diary.Facade.CommentFacade;
 import com.dsm.diary.dto.request.CommentRequest;
 import com.dsm.diary.dto.response.CommentResponse;
+import com.dsm.diary.facade.CommentFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,23 +12,20 @@ import org.springframework.transaction.annotation.Transactional;
 public class CommentService {
     private final CommentFacade commentFacade;
 
-    @Transactional
-    public void addComment(Long postId, CommentRequest commentRequest){
+    public void addComment(Long postId, CommentRequest commentRequest) {
         commentFacade.addComment(postId, commentRequest);
     }
 
-    @Transactional
-    public void delComment(Long commentId){
+    public void delComment(Long commentId) {
         commentFacade.delComment(commentId);
     }
 
-    @Transactional
-    public void modifyComment(CommentRequest commentRequest, Long commentId){
+    public void modifyComment(CommentRequest commentRequest, Long commentId) {
         commentFacade.modifyComment(commentRequest, commentId);
     }
 
-    @Transactional
-    public CommentResponse getComment(Long commentId){
+    @Transactional(readOnly = true)
+    public CommentResponse getComment(Long commentId) {
         return commentFacade.getComment(commentId);
     }
 
