@@ -1,6 +1,6 @@
 package com.dsm.diary.security.auth;
 
-import com.dsm.diary.Exception.NotFoundException;
+import com.dsm.diary.exception.NotFoundException;
 import com.dsm.diary.entity.account.AccountRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
