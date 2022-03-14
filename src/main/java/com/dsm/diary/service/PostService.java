@@ -48,7 +48,7 @@ public class PostService {
         checkFeeling(requset.getFeeling());
 
         Post post = postRepository.findById(postId)
-                .orElseThrow(NotFoundException::new);
+                .orElseThrow(()->new NotFoundException("게시글을 찾을 수 없습니다."));
 
         authUtiil.verificationAccount(post.getAccount());
 
@@ -59,7 +59,7 @@ public class PostService {
 
     private void checkFeeling(Integer feeling) {
         if(feeling < 0 || feeling > 5) {
-            throw new BadRequestException();
+            throw new BadRequestException("별의 개수는 1이상 5이하이여야 합니다.");
         }
     }
 
