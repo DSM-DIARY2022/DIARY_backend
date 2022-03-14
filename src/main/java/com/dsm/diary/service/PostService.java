@@ -6,7 +6,7 @@ import com.dsm.diary.dto.request.PostRequest;
 import com.dsm.diary.dto.response.PostIdResponse;
 import com.dsm.diary.entity.post.Post;
 import com.dsm.diary.entity.post.PostRepository;
-import com.dsm.diary.service.Util.AuthUtiil;
+import com.dsm.diary.service.Util.AuthUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class PostService {
 
-    private final AuthUtiil authUtiil;
+    private final AuthUtil authUtil;
     private final PostRepository postRepository;
 
     /**
@@ -28,7 +28,7 @@ public class PostService {
         checkFeeling(requset.getFeeling());
         Long id = postRepository.save(
                 Post.builder()
-                        .account(authUtiil.getAccount())
+                        .account(authUtil.getAccount())
                         .title(requset.getTitle())
                         .content(requset.getContent())
                         .feeling(requset.getFeeling())
@@ -50,7 +50,7 @@ public class PostService {
         Post post = postRepository.findById(postId)
                 .orElseThrow(()->new NotFoundException("게시글을 찾을 수 없습니다."));
 
-        authUtiil.verificationAccount(post.getAccount());
+        authUtil.verificationAccount(post.getAccount());
 
         post.update(requset);
         postRepository.save(post);
