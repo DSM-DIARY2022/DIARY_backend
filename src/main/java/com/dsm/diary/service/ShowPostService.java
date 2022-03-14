@@ -7,7 +7,7 @@ import com.dsm.diary.dto.response.PostViweListResponse;
 import com.dsm.diary.dto.response.PostViweResponse;
 import com.dsm.diary.entity.post.Post;
 import com.dsm.diary.entity.post.PostRepository;
-import com.dsm.diary.service.Util.AuthUtiil;
+import com.dsm.diary.service.Util.AuthUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +19,7 @@ import java.util.List;
 @Service
 public class ShowPostService {
 
-    private final AuthUtiil authUtiil;
+    private final AuthUtil authUtil;
     private final PostRepository postRepository;
 
     /**
@@ -33,7 +33,7 @@ public class ShowPostService {
         Post post = postRepository.findById(postId)
                 .orElseThrow(()-> new NotFoundException("게시글을 찾을 수 없습니다."));
 
-        authUtiil.verificationAccount(post.getAccount());
+        authUtil.verificationAccount(post.getAccount());
 
         return PostResponse.builder()
                 .id(post.getId())
@@ -55,7 +55,7 @@ public class ShowPostService {
      * author : chlgml
      **/
     public PostViweListResponse showMyPostList() {
-        List<Post> posts = postRepository.findAllByAccountOrderByCreatedDateDesc(authUtiil.getAccount());
+        List<Post> posts = postRepository.findAllByAccountOrderByCreatedDateDesc(authUtil.getAccount());
         return getPostList(posts);
     }
 
@@ -67,7 +67,7 @@ public class ShowPostService {
      * author : chlgml
      **/
     public PostViweListResponse showFeelingPostList(Integer feeling) {
-        List<Post> posts = postRepository.findAllByAccountAndFeelingOrderByCreatedDateDesc(authUtiil.getAccount(), feeling);
+        List<Post> posts = postRepository.findAllByAccountAndFeelingOrderByCreatedDateDesc(authUtil.getAccount(), feeling);
         return getPostList(posts);
     }
 
