@@ -19,19 +19,19 @@ public class AuthUtiil {
     public String getAccountId() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null) {
-            throw new UnauthorizedException();
+            throw new UnauthorizedException("로그인이 되지 않았습니다.");
         }
         return authentication.getName();
     }
 
     public Account getAccount() {
         return accountRepository.findByAccountId(getAccountId())
-                .orElseThrow(NotFoundException::new);
+                .orElseThrow(()-> new NotFoundException("사용자를 찾을 수 없습니다."));
     }
 
     public void verificationAccount(Account account) {
         if(!(getAccount() == account)) {
-            throw new ForbiddenException();
+            throw new ForbiddenException("일기의 작성자가 아니므로 일기를 볼 수 없습니다.");
         }
     }
 
