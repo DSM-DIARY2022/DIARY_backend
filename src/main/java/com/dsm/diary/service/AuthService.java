@@ -8,20 +8,32 @@ import com.dsm.diary.entity.account.AccountRepository;
 import com.dsm.diary.entity.refreshToken.RefreshToken;
 import com.dsm.diary.entity.refreshToken.RefreshTokenRepository;
 import com.dsm.diary.exception.NotFoundException;
+import com.dsm.diary.exception.ServerErrorException;
 import com.dsm.diary.exception.UnauthorizedException;
 import com.dsm.diary.facade.AuthFacade;
 import com.dsm.diary.security.jwt.JwtProperties;
 import com.dsm.diary.security.jwt.JwtTokenProvider;
 import com.dsm.diary.security.jwt.dto.TokenResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+
 @Service
 @RequiredArgsConstructor
 public class AuthService {
+
+    @Value("${mail.username}")
+    private String emailUsername;
+
     private final AuthFacade accountFacade;
+    private final JavaMailSender javaMailSender;
     private final PasswordEncoder passwordEncoder;
     private final JwtProperties jwtProperties;
     private final JwtTokenProvider jwtTokenProvider;
@@ -30,8 +42,21 @@ public class AuthService {
 
     @Transactional
     public void signup(SignupRequest signupRequest) {
-        accountFacade.signup(signupRequest);
-        accountFacade.sendSuccessEmail(signupRequest.getEmail());
+        accountFacade.accountIdAlreadyExists(signupRequest.getAccountId());
+        accountFacade.emailAlreadyExists(signupRequest.getEmail());
+
+        accountRepository.findByEmail(signupRequest.getEmail());
+        signupRequest.encodePassword(passwordEncoder.encode(signupRequest.getPassword()));
+
+        accountRepository.save(
+                Account.builder()
+                        .email(signupRequest.getEmail())
+                        .name(signupRequest.getName())
+                        .accountId(signupRequest.getAccountId())
+                        .password(signupRequest.getPassword())
+                        .build());
+
+        sendSuccessEmail(signupRequest.getEmail());
     }
 
     @Transactional
@@ -59,9 +84,38 @@ public class AuthService {
         accountRepository.findByAccountIdAndEmail(findAccountIdRequest.getName(), findAccountIdRequest.getEmail())
                 .orElseThrow(NotFoundException::new);
 
-        accountFacade.sendAccountIdEmail(findAccountIdRequest.getName(), findAccountIdRequest.getEmail());
+        sendAccountIdEmail(findAccountIdRequest.getName(), findAccountIdRequest.getEmail());
     }
 
+    private void sendAccountIdEmail(String email, String accountId) {
+        MimeMessage message = javaMailSender.createMimeMessage();
+
+        try {
+            message.setFrom(emailUsername);
+            message.addRecipients(Message.RecipientType.TO, email);
+            message.setSubject("[아이디 찾기]");
+            message.setText("회원님의 아이디는 " + accountId + "입니다.");
+            javaMailSender.send(message);
+        } catch (MessagingException e) {
+            e.getStackTrace();
+            throw new ServerErrorException();
+        }
+    }
+
+    private void sendSuccessEmail(String email) {
+        MimeMessage message = javaMailSender.createMimeMessage();
+
+        try {
+            message.setFrom(emailUsername);
+            message.addRecipients(Message.RecipientType.TO, email);
+            message.setSubject("[회원가입 성공]");
+            message.setText("회원가입에 성공하셨습니다.");
+            javaMailSender.send(message);
+        } catch (MessagingException e) {
+            e.getStackTrace();
+            throw new ServerErrorException();
+        }
+    }
     /**
      *
      * 회원가입 : 성공하면 가입한 email로 메일 전송, 201
