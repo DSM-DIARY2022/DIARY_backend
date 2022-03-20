@@ -46,14 +46,13 @@ public class AuthService {
         accountFacade.emailAlreadyExists(signupRequest.getEmail());
 
         accountRepository.findByEmail(signupRequest.getEmail());
-        signupRequest.encodePassword(passwordEncoder.encode(signupRequest.getPassword()));
 
         accountRepository.save(
                 Account.builder()
                         .email(signupRequest.getEmail())
                         .name(signupRequest.getName())
                         .accountId(signupRequest.getAccountId())
-                        .password(signupRequest.getPassword())
+                        .password(passwordEncoder.encode(signupRequest.getPassword()))
                         .build());
 
         sendSuccessEmail(signupRequest.getEmail());
