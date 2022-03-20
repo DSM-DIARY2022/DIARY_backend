@@ -23,13 +23,34 @@ import java.util.Date;
 @Component
 @RequiredArgsConstructor
 public class JwtTokenProvider {
+
     private final JwtProperties jwtProperties;
     private final AccountDetailsService accountDetailsService;
     private final RefreshTokenRepository refreshTokenRepository;
 
     public TokenResponse generateToken(String accountId) {
-        String access = generateAccessToken(accountId, "access");
-        String refresh = generateRefreshToken(accountId, "refresh");
+        String access = generateAccessToken(accountId);
+        String refresh = generateRefreshToken(accountId);
+
+        return new TokenResponse(access, refresh);
+    }
+
+    private String setToken(String accountId, String type, Long exp) {
+        return Jwts.builder()
+                .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecretKey())
+                .setSubject(accountId)
+                .claim("typ", type)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + exp * 1000))
+                .compact();
+    }
+
+    private String generateAccessToken(String accountId) {
+        return setToken(accountId, "access", jwtProperties.getAccessExp());
+    }
+
+    private String generateRefreshToken(String accountId) {
+        String refresh = setToken(accountId, "refresh", jwtProperties.getRefreshExp());
 
         refreshTokenRepository.save(
                 RefreshToken.builder()
@@ -39,31 +60,7 @@ public class JwtTokenProvider {
                         .build()
         );
 
-        return new TokenResponse(access, refresh);
-    }
-
-    public String generateAccessToken(String accountId, String type) {
-        return Jwts.builder()
-                .setSubject(accountId)
-                .claim("typ", type)
-                .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecretKey())
-                .setExpiration(
-                        new Date(System.currentTimeMillis() + jwtProperties.getAccessExp() * 1000)
-                )
-                .setIssuedAt(new Date())
-                .compact();
-    }
-
-    public String generateRefreshToken(String accountId, String type) {
-        return Jwts.builder()
-                .setSubject(accountId)
-                .claim("typ", type)
-                .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecretKey())
-                .setExpiration(
-                        new Date(System.currentTimeMillis() + jwtProperties.getRefreshExp() * 1000)
-                )
-                .setIssuedAt(new Date())
-                .compact();
+        return refresh;
     }
 
     public String resolveToken(HttpServletRequest request) {
