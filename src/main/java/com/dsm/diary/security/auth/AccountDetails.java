@@ -1,6 +1,5 @@
 package com.dsm.diary.security.auth;
 
-import com.dsm.diary.entity.account.Account;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
