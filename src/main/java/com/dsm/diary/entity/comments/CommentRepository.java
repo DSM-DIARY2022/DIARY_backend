@@ -2,6 +2,8 @@ package com.dsm.diary.entity.comments;
 
 import org.springframework.data.repository.CrudRepository;
 
-public interface CommentRepository extends CrudRepository<Comment, Long> {
+import java.util.Optional;
 
+public interface CommentRepository extends CrudRepository<Comment, Long> {
+    Optional<Comment> findById(Long id);
 }

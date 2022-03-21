@@ -1,7 +1,6 @@
 package com.dsm.diary.entity.account;
 
 import com.dsm.diary.entity.post.Post;
-
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;

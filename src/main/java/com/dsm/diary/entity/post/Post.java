@@ -1,5 +1,6 @@
 package com.dsm.diary.entity.post;
 
+import com.dsm.diary.dto.request.PostRequest;
 import com.dsm.diary.entity.BaseTime;
 import com.dsm.diary.entity.account.Account;
 import com.dsm.diary.entity.comments.Comment;
@@ -56,6 +57,13 @@ public class Post extends BaseTime { // 게시글
         this.content = content;
         this.account = account;
         this.comment = comment;
+    }
+
+
+    public void update(PostRequest request) {
+        this.feeling = request.getFeeling();
+        this.title = request.getTitle();
+        this.content = request.getContent();
     }
 
 }

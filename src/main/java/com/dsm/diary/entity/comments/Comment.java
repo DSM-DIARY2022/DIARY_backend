@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -32,7 +31,13 @@ public class Comment { // 댓글
     @JoinColumn(name = "post_id")
     private Post post;
 
-    public Comment(String content) {
+    public Comment(String content, Post post) {
         this.content = content;
+        this.post = post;
+    }
+
+    public Comment updateComment(String content){
+        this.content = content;
+        return this;
     }
 }
