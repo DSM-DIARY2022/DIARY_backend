@@ -7,6 +7,7 @@ import com.dsm.diary.entity.account.Account;
 import com.dsm.diary.entity.account.AccountRepository;
 import com.dsm.diary.entity.refreshToken.RefreshToken;
 import com.dsm.diary.entity.refreshToken.RefreshTokenRepository;
+import com.dsm.diary.exception.BadRequestException;
 import com.dsm.diary.exception.NotFoundException;
 import com.dsm.diary.exception.ServerErrorException;
 import com.dsm.diary.exception.UnauthorizedException;
@@ -45,8 +46,6 @@ public class AuthService {
         accountFacade.accountIdAlreadyExists(signupRequest.getAccountId());
         accountFacade.emailAlreadyExists(signupRequest.getEmail());
 
-        accountRepository.findByEmail(signupRequest.getEmail());
-
         accountRepository.save(
                 Account.builder()
                         .email(signupRequest.getEmail())
@@ -71,11 +70,20 @@ public class AuthService {
 
     @Transactional
     public TokenResponse reissue(String refreshToken) {
+
+        if(!jwtTokenProvider.getBody(refreshToken).get("typ").equals("refresh")){
+            throw new BadRequestException();
+        }
+
         RefreshToken updateRefreshToken = refreshTokenRepository.findByRefreshToken(refreshToken)
                 .orElseThrow(NotFoundException::new);
-        updateRefreshToken.update(jwtProperties.getRefreshExp());
 
-        return jwtTokenProvider.generateToken(updateRefreshToken.getId());
+        String newRefreshToken = jwtTokenProvider.generateRefreshToken(updateRefreshToken.getId());
+        updateRefreshToken.update(newRefreshToken);
+
+        String newAccessToken = jwtTokenProvider.generateAccessToken(updateRefreshToken.getId());
+
+        return new TokenResponse(newAccessToken, newRefreshToken);
     }
 
     @Transactional(readOnly = true)

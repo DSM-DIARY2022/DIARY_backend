@@ -25,7 +25,7 @@ public class RefreshToken {
     @TimeToLive
     private Long ttl;
 
-    public void update(Long ttl){
-        this.ttl = ttl;
+    public void update(String refreshToken){
+        this.refreshToken = refreshToken;
     }
 }

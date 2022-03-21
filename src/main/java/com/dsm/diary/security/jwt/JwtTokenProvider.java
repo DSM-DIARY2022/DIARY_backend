@@ -29,10 +29,7 @@ public class JwtTokenProvider {
     private final RefreshTokenRepository refreshTokenRepository;
 
     public TokenResponse generateToken(String accountId) {
-        String access = generateAccessToken(accountId);
-        String refresh = generateRefreshToken(accountId);
-
-        return new TokenResponse(access, refresh);
+        return new TokenResponse(generateAccessToken(accountId), generateRefreshToken(accountId));
     }
 
     private String setToken(String accountId, String type, Long exp) {
@@ -45,11 +42,11 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    private String generateAccessToken(String accountId) {
+    public String generateAccessToken(String accountId) {
         return setToken(accountId, "access", jwtProperties.getAccessExp());
     }
 
-    private String generateRefreshToken(String accountId) {
+    public String generateRefreshToken(String accountId) {
         String refresh = setToken(accountId, "refresh", jwtProperties.getRefreshExp());
 
         refreshTokenRepository.save(
